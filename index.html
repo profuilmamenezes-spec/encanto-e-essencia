@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Encanto & Essência</title>
+<title>Encanto & Essência | Saboaria Artesanal e Kits para Presentes</title>
 <meta name="description" content="Encanto & Essência by Reh Cristina. Saboaria artesanal, cremes, aromas e kits personalizados para transformar carinho em memória.">
 <link rel="canonical" href="https://encantoeessencia.com.br/">
-  <link rel="icon" type="image/png" href="favicon-encanto-essencia.png">
+<link rel="icon" type="image/png" href="favicon-encanto-essencia.png">
 <style>
 :root{
   --lilas:#A78BFA;
@@ -153,6 +153,13 @@ header{
   padding:34px;border:1px solid rgba(91,58,120,.12);background:white;border-radius:24px;
   box-shadow:var(--sombra);display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center
 }
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.social-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none}
+.social-btn.whatsapp{background:#25D366;color:#103d20}
+.social-btn.instagram{background:linear-gradient(135deg,#833AB4,#FD1D1D,#FCAF45);color:white}
+.summary-actions{display:flex;gap:10px;flex-wrap:wrap}
+.summary-actions .btn{margin:0}
+.footer-social a{display:inline-block;margin-right:16px;font-weight:800}
 
 /* Footer */
 footer{background:#24102f;color:#eadeee;padding:50px 0 24px}
@@ -162,11 +169,14 @@ footer h4{font-family:Georgia,'Times New Roman',serif;color:white;margin-top:0}
 footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
 .copyright{border-top:1px solid rgba(255,255,255,.13);margin-top:34px;padding-top:22px;text-align:center;font-size:13px;color:#cdbed4}
 
-/* Floating */
+/* Floating WhatsApp */
 .float-contact{
-  position:fixed;right:20px;bottom:20px;z-index:40;background:var(--turquesa);color:#143e3c;
-  border-radius:999px;padding:13px 17px;font-weight:900;box-shadow:0 12px 30px rgba(20,80,77,.25)
+  position:fixed;right:20px;bottom:20px;z-index:40;background:#25D366;color:#103d20;
+  border-radius:999px;padding:13px 17px;font-weight:900;box-shadow:0 12px 30px rgba(20,80,77,.25);
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none
 }
+.float-contact:before{content:"☏";font-size:20px;line-height:1}
+.float-contact:hover{transform:translateY(-2px)}
 
 /* Modal */
 .modal{position:fixed;inset:0;background:rgba(22,7,30,.62);z-index:100;display:none;place-items:center;padding:20px}
@@ -201,8 +211,9 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
   .benefit{border-right:0;border-bottom:1px solid #eadff0}
   .product-card img{height:220px}.options{grid-template-columns:1fr}
   .contact-box{grid-template-columns:1fr}
-  .float-contact{font-size:0;width:52px;height:52px;padding:0;display:grid;place-items:center}
-  .float-contact:before{content:"Contato";font-size:11px}
+  .contact-actions{justify-content:flex-start}
+  .float-contact{font-size:0;width:56px;height:56px;padding:0;display:grid;place-items:center}
+  .float-contact:before{content:"☏";font-size:25px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
@@ -440,8 +451,11 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
     <aside class="summary">
       <h3>Seu pedido</h3>
       <pre id="resumo">Escolha as opções ao lado e clique em “Montar meu pedido”.</pre>
-      <button class="btn gold" id="copiarBtn" type="button">Copiar pedido</button>
-      <p class="notice">Assim que o WhatsApp oficial da loja for informado, este botão também poderá abrir a conversa já com o pedido preenchido.</p>
+      <div class="summary-actions">
+        <button class="btn gold" id="copiarBtn" type="button">Copiar pedido</button>
+        <button class="btn" id="whatsPedidoBtn" type="button">Enviar no WhatsApp</button>
+      </div>
+      <p class="notice">O botão “Enviar no WhatsApp” abre a conversa com seu pedido já preenchido.</p>
     </aside>
   </div>
 </section>
@@ -518,8 +532,16 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
 
 <section class="section" id="contato">
   <div class="container contact-box reveal">
-    <div><div class="eyebrow">Atendimento</div><h2 style="font-size:38px">Vamos criar um presente especial?</h2><p class="sub">Envie seu pedido personalizado. Podemos conectar aqui o WhatsApp e o Instagram oficiais assim que você me passar os dados.</p></div>
-    <a class="btn" href="#monte">Começar meu pedido</a>
+    <div>
+      <div class="eyebrow">Atendimento</div>
+      <h2 style="font-size:38px">Vamos criar um presente especial?</h2>
+      <p class="sub">Fale com a Encanto & Essência pelo WhatsApp ou acompanhe novidades, kits e inspirações pelo Instagram.</p>
+    </div>
+    <div class="contact-actions">
+      <a class="btn social-btn whatsapp" href="https://wa.me/5511977899481?text=Ol%C3%A1%21%20%F0%9F%92%9C%20Vim%20pelo%20site%20da%20Encanto%20%26%20Ess%C3%AAncia%20e%20gostaria%20de%20conhecer%20os%20kits." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn social-btn instagram" href="https://www.instagram.com/prof.uilmamenezes/" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn" href="#monte">Montar meu pedido</a>
+    </div>
   </div>
 </section>
 </main>
@@ -532,20 +554,20 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
         <p style="max-width:410px;line-height:1.7;color:#d6c8dc">Saboaria artesanal e kits de presente criados com delicadeza para transformar carinho em memória.</p>
       </div>
       <div><h4>Navegação</h4><a href="#inicio">Início</a><a href="#colecoes">Coleções</a><a href="#monte">Monte seu kit</a><a href="#essencia">Nossa essência</a><a href="#kits-especiais">Kits especiais</a><a href="#curso">Curso</a><a href="#contato">Contato</a></div>
-      <div><h4>Encanto & Essência</h4><p style="line-height:1.7;color:#d6c8dc">encantoeessencia.com.br</p><p style="line-height:1.7;color:#d6c8dc">Atendimento e redes sociais serão conectados aos canais oficiais da marca.</p></div>
+      <div><h4>Encanto & Essência</h4><p style="line-height:1.7;color:#d6c8dc">encantoeessencia.com.br</p><div class="footer-social"><a href="https://wa.me/5511977899481" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/prof.uilmamenezes/" target="_blank" rel="noopener">Instagram @prof.uilmamenezes</a></div></div>
     </div>
     <div class="copyright">© 2026 Encanto & Essência by Reh Cristina. Todos os direitos reservados.</div>
   </div>
 </footer>
 
-<a class="float-contact" href="#contato" aria-label="Ir para contato">Contato</a>
+<a class="float-contact" href="https://wa.me/5511977899481?text=Ol%C3%A1%21%20%F0%9F%92%9C%20Vim%20pelo%20site%20da%20Encanto%20%26%20Ess%C3%AAncia%20e%20gostaria%20de%20conhecer%20os%20kits." target="_blank" rel="noopener" aria-label="Falar com a Encanto & Essência no WhatsApp">WhatsApp</a>
 
 <div class="modal" id="modal">
   <div class="modal-card">
     <button class="close" id="closeModal" aria-label="Fechar">×</button>
     <h3>Pedido montado</h3>
-    <p>Seu resumo está pronto. Use o botão “Copiar pedido” e envie para a Encanto & Essência.</p>
-    <button class="btn" id="modalCopy">Copiar pedido</button>
+    <p>Seu resumo está pronto. Você pode copiar ou enviar diretamente pelo WhatsApp.</p>
+    <div class="summary-actions"><button class="btn" id="modalCopy">Copiar pedido</button><button class="btn gold" id="modalWhats">Enviar no WhatsApp</button></div>
   </div>
 </div>
 
@@ -575,9 +597,16 @@ async function copiar(){
   try{await navigator.clipboard.writeText(ultimoResumo);alert('Pedido copiado!');}
   catch(e){alert('Selecione o texto do resumo e copie manualmente.');}
 }
+function abrirWhatsApp(){
+  if(!ultimoResumo) montarResumo();
+  const url='https://wa.me/5511977899481?text='+encodeURIComponent(ultimoResumo);
+  window.open(url,'_blank','noopener');
+}
 document.getElementById('montarBtn').addEventListener('click',montarResumo);
 document.getElementById('copiarBtn').addEventListener('click',copiar);
 document.getElementById('modalCopy').addEventListener('click',copiar);
+document.getElementById('whatsPedidoBtn').addEventListener('click',abrirWhatsApp);
+document.getElementById('modalWhats').addEventListener('click',abrirWhatsApp);
 document.getElementById('closeModal').addEventListener('click',()=>document.getElementById('modal').classList.remove('open'));
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')e.target.classList.remove('open')});
 
