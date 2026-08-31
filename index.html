@@ -728,13 +728,35 @@ if(emailOffer && !localStorage.getItem('encantoOfferSeen')) setTimeout(()=>email
 emailOfferClose?.addEventListener('click',closeEmailOffer);
 emailOfferDone?.addEventListener('click',closeEmailOffer);
 emailOffer?.addEventListener('click',e=>{if(e.target===emailOffer) closeEmailOffer()});
-emailOfferForm?.addEventListener('submit',e=>{
+const LEADS_WEB_APP_URL='https://script.google.com/macros/s/AKfycbyMujSWIiLMU-l-IPFB714edSjyiOphGhShyFu_AMGb6kxKmyEbO0oXQgsxNpv4upZZaA/exec';
+
+emailOfferForm?.addEventListener('submit',async e=>{
   e.preventDefault();
   if(!offerEmail.checkValidity()){offerEmail.reportValidity();return;}
-  localStorage.setItem('encantoLeadEmail',offerEmail.value.trim());
-  localStorage.setItem('encantoOfferSeen','1');
-  document.getElementById('emailOfferFormWrap').style.display='none';
-  document.getElementById('emailOfferSuccess').style.display='block';
+
+  const email=offerEmail.value.trim();
+  const submitBtn=emailOfferForm.querySelector('button[type="submit"]');
+  const originalText=submitBtn.textContent;
+  submitBtn.disabled=true;
+  submitBtn.textContent='ENVIANDO...';
+
+  try{
+    await fetch(LEADS_WEB_APP_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({email})
+    });
+
+    localStorage.setItem('encantoLeadEmail',email);
+    localStorage.setItem('encantoOfferSeen','1');
+    document.getElementById('emailOfferFormWrap').style.display='none';
+    document.getElementById('emailOfferSuccess').style.display='block';
+  }catch(err){
+    alert('Não foi possível registrar seu e-mail agora. Tente novamente em instantes.');
+    submitBtn.disabled=false;
+    submitBtn.textContent=originalText;
+  }
 });
 
 </script>
