@@ -314,6 +314,25 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
   .campaign-track{animation-duration:22s}
 }
 
+
+/* First purchase email offer */
+.email-offer{position:fixed;inset:0;background:rgba(36,16,48,.62);display:none;align-items:center;justify-content:center;padding:22px;z-index:9999;backdrop-filter:blur(4px)}
+.email-offer.open{display:flex}
+.email-offer-card{width:min(520px,100%);background:#fffaf5;border:1px solid rgba(201,162,39,.55);border-radius:26px;padding:34px;box-shadow:0 24px 80px rgba(36,16,48,.3);position:relative;text-align:center}
+.email-offer-card:before{content:'E';display:grid;place-items:center;margin:0 auto 14px;width:58px;height:58px;border-radius:50%;background:#5b3a78;color:#c9a227;font-family:Georgia,serif;font-size:34px;font-weight:700}
+.email-offer-close{position:absolute;right:16px;top:12px;border:0;background:transparent;color:#5b3a78;font-size:30px;cursor:pointer;line-height:1}
+.email-offer-card h3{font-family:Georgia,serif;color:#4a245f;font-size:clamp(28px,5vw,40px);margin:0 0 10px}
+.email-offer-card h3 strong{color:#a57b16}
+.email-offer-card p{color:#644d6d;line-height:1.6;margin:0 auto 18px;max-width:430px}
+.email-offer-form{display:flex;gap:10px;margin-top:18px}
+.email-offer-form input{flex:1;min-width:0;border:1px solid #d9c9e8;background:white;border-radius:999px;padding:14px 18px;font:inherit;outline:none}
+.email-offer-form input:focus{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(167,139,250,.18)}
+.email-offer-form button{border:0;border-radius:999px;background:#5b3a78;color:white;padding:14px 20px;font-weight:800;cursor:pointer}
+.email-offer-privacy{font-size:12px!important;color:#806f86!important;margin-top:14px!important}
+.email-offer-success{display:none}
+.email-offer-success .coupon{display:inline-block;margin:10px 0 14px;padding:12px 20px;border:2px dashed #c9a227;border-radius:12px;color:#5b3a78;font-weight:900;letter-spacing:.7px;background:#fff}
+@media(max-width:600px){.email-offer-card{padding:30px 20px 24px}.email-offer-form{flex-direction:column}.email-offer-form button{width:100%}}
+
 </style>
 </head>
 <body>
@@ -571,6 +590,29 @@ footer a{display:block;margin:9px 0;color:#dfd1e5;font-size:14px}
   </div>
 </div>
 
+
+<div class="email-offer" id="emailOffer" role="dialog" aria-modal="true" aria-labelledby="emailOfferTitle">
+  <div class="email-offer-card">
+    <button class="email-offer-close" id="emailOfferClose" aria-label="Fechar">×</button>
+    <div id="emailOfferFormWrap">
+      <h3 id="emailOfferTitle">Um encanto para você: <strong>10% OFF</strong></h3>
+      <p>Deixe seu melhor e-mail e ganhe 10% de desconto na sua primeira compra na Encanto & Essência.</p>
+      <form class="email-offer-form" id="emailOfferForm">
+        <input id="offerEmail" type="email" autocomplete="email" placeholder="Seu melhor e-mail" required aria-label="Seu melhor e-mail">
+        <button type="submit">QUERO MEU 10% OFF</button>
+      </form>
+      <p class="email-offer-privacy">Ao cadastrar seu e-mail, você concorda em receber novidades e ofertas da Encanto & Essência. Você pode sair da lista quando quiser.</p>
+    </div>
+    <div class="email-offer-success" id="emailOfferSuccess">
+      <h3>Seu presente chegou! 💜</h3>
+      <p>Use este cupom na sua primeira compra:</p>
+      <div class="coupon">PRIMEIROENCANTO10</div>
+      <p>Guarde o código e informe no momento do pedido.</p>
+      <button class="btn" id="emailOfferDone" type="button">Continuar no site</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const menuBtn=document.getElementById('menuBtn'), nav=document.getElementById('navlinks');
 menuBtn.addEventListener('click',()=>nav.classList.toggle('open'));
@@ -671,6 +713,29 @@ function trocarFrase(){
 
 renderFrase(fraseAtual);
 setInterval(trocarFrase,4300);
+
+
+// Pop-up de 10% OFF na primeira compra.
+// Nesta versão, o e-mail fica apenas neste navegador. Para formar uma lista de leads,
+// conecte o formulário a um serviço seguro/backend antes de usar os endereços para campanhas.
+const emailOffer=document.getElementById('emailOffer');
+const emailOfferForm=document.getElementById('emailOfferForm');
+const emailOfferClose=document.getElementById('emailOfferClose');
+const emailOfferDone=document.getElementById('emailOfferDone');
+const offerEmail=document.getElementById('offerEmail');
+function closeEmailOffer(){emailOffer.classList.remove('open');localStorage.setItem('encantoOfferSeen','1')}
+if(emailOffer && !localStorage.getItem('encantoOfferSeen')) setTimeout(()=>emailOffer.classList.add('open'),6500);
+emailOfferClose?.addEventListener('click',closeEmailOffer);
+emailOfferDone?.addEventListener('click',closeEmailOffer);
+emailOffer?.addEventListener('click',e=>{if(e.target===emailOffer) closeEmailOffer()});
+emailOfferForm?.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!offerEmail.checkValidity()){offerEmail.reportValidity();return;}
+  localStorage.setItem('encantoLeadEmail',offerEmail.value.trim());
+  localStorage.setItem('encantoOfferSeen','1');
+  document.getElementById('emailOfferFormWrap').style.display='none';
+  document.getElementById('emailOfferSuccess').style.display='block';
+});
 
 </script>
 </body>
